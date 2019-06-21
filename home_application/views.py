@@ -224,6 +224,8 @@ def mock_exam1_exec_job(request):
 
     checkboxs = param.get('checkboxs')
     checkboxs = checkboxs.split(',')
+    if len(checkboxs) < 1:
+        return render_json("未选择主机")
     ip_list = list()
     for item in checkboxs:
         ip_list.append(dict(ip=item,
@@ -251,7 +253,7 @@ def mock_exam1_exec_job(request):
     joblogtaskr = JobLogTaskR(**joblogtaskr_dict)
     joblogtaskr.save()
 
-    return render_json(job_instance_id)
+    return render_json("已启动作业：%s" % job_instance_id)
 
 
 def mock_exam1_exec_log(request):
