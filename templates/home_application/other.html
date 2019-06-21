@@ -1,0 +1,296 @@
+<%inherit file="/base.html"/>
+
+<%block name="content">
+
+
+<!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
+<!-- Bootstrap css -->
+<link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css"
+      rel="stylesheet">
+<!-- kendo ui css -->
+<link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css"
+      rel="stylesheet">
+<link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css"
+      rel="stylesheet">
+<!-- font-awesome -->
+<link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+<!--蓝鲸提供的公用样式库 -->
+<link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+<link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+<!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+<!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+<!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+<script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+<!-- 数据埋点统计 -->
+<script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+<!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+<!--[if lt IE 9]>
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script>
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
+
+<body>
+<!--文件上传 start-->
+<div>
+    <h2>文件上传</h2>
+    <input type="file" id="file" name="myfile"/>
+    <input type="button" onclick="UploadFile()" value="上传"/>
+</div>
+<!--文件上传 end-->
+
+<!--文件下载 start-->
+<div>
+    <h2>文件下载</h2>
+    <a onclick="DownloadFile('123.txt')">点击文件下载1</a>
+    <a href="download/?filename=123.txt">点击文件下载2</a>
+</div>
+<!--文件下载 end-->
+
+<!--分页 start-->
+<div>
+    <h2>分页demo 和 表格按钮操作</h2>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/jPages-0.7/js/jPages.js"></script>
+    <div class="king-block-content" id="jpages_demo1">
+        <table>
+            <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Rating</th>
+                <th>Title</th>
+                <th>Votes</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="datas">
+            <tr style="display: table-row; opacity: 1;" class="jp-hidden">
+                <td>1.</td>
+                <td>9.2</td>
+                <td>The Shawshank Redemption (1994)</td>
+                <td>699,295</td>
+                <td>
+                    <button onclick="table_edit('2')" class="btn btn-xs btn-warning" title="编辑">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </button>
+                    <button onclick="table_delete('2')" class="btn btn-xs btn-danger" title="删除">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="jp-hidden">
+                <td>2.</td>
+                <td>9.2</td>
+                <td>The Godfather (1972)</td>
+                <td>524,507</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="jp-hidden">
+                <td>3.</td>
+                <td>9.0</td>
+                <td>The Godfather: Part II (1974)</td>
+                <td>329,051</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="jp-hidden">
+                <td>4.</td>
+                <td>8.9</td>
+                <td>Il buono, il brutto, il cattivo. (1966)</td>
+                <td>219,022</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="jp-hidden">
+                <td>5.</td>
+                <td>8.9</td>
+                <td>Pulp Fiction (1994)</td>
+                <td>549,166</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="jp-hidden">
+                <td>6.</td>
+                <td>8.9</td>
+                <td>12 Angry Men (1957)</td>
+                <td>170,234</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="jp-hidden">
+                <td>7.</td>
+                <td>8.9</td>
+                <td>Schindler's List (1993)</td>
+                <td>366,494</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="jp-hidden">
+                <td>8.</td>
+                <td>8.8</td>
+                <td>The Dark Knight (2008)</td>
+                <td>634,065</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="jp-hidden">
+                <td>9.</td>
+                <td>8.8</td>
+                <td>One Flew Over the Cuckoo's Nest (1975)</td>
+                <td>292,690</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="jp-hidden">
+                <td>10.</td>
+                <td>8.8</td>
+                <td>The Lord of the Rings: The Return of the King (2003)</td>
+                <td>489,205</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="">
+                <td>11.</td>
+                <td>8.8</td>
+                <td>Star Wars: Episode V - The Empire Strikes Back (1980)</td>
+                <td>357,625</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="">
+                <td>12.</td>
+                <td>8.8</td>
+                <td>Fight Club (1999)</td>
+                <td>525,429</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="">
+                <td>13.</td>
+                <td>8.8</td>
+                <td>Inception (2010)</td>
+                <td>483,986</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="">
+                <td>14.</td>
+                <td>8.8</td>
+                <td>Shichinin no samurai (1954)</td>
+                <td>121,275</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="">
+                <td>15.</td>
+                <td>8.7</td>
+                <td>The Lord of the Rings: The Fellowship of the Ring (2001)</td>
+                <td>510,260</td>
+            </tr>
+            <tr style="display: table-row; opacity: 1;" class="">
+                <td>16.</td>
+                <td>8.7</td>
+                <td>Goodfellas (1990)</td>
+                <td>309,394</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="holder">
+            <div class="king-jP"><a class="jp-previous">←</a><a class="">1</a><span class="jp-hidden">...</span><a
+                    class="jp-current">2</a><a class="jp-next jp-disabled">→</a></div>
+        </div>
+    </div>
+
+</div>
+
+<!--分页 end-->
+
+<div>
+    <h2>模态框</h2>
+    <button onclick="show_modal()">弹出模态框</button>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h2 class="modal-title" id="myModalLabel">
+                        创建待办任务
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <!-- 添加内容 -->
+                    <div class="king-block king-block-bordered">
+
+                        <div class="king-block-content">
+                            <form class="form-horizontal" method="POST">
+                                <div class="form-group">
+                                    <label for="inputCount3" class="col-sm-3 control-label">业务名称：</label>
+                                    <div class="col-sm-7">
+                                        <input disabled="disabled" type="text" class="form-control" id="modal_biz_name"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">模板类型：</label>
+                                    <div class="col-sm-7">
+                                        <input disabled="disabled" type="text" class="form-control"
+                                               id="modal_template_type" placeholder="">
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">模板名称：</label>
+                                    <div class="col-sm-7">
+                                        <input disabled="disabled" type="text" class="form-control"
+                                               id="modal_template_name" placeholder="">
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">操作识别符：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="modal_identifier" placeholder="">
+                                    </div>
+                                    <span class="text-danger mt5 fl">*</span>
+                                </div>
+                                <div class="form-group" type="hidden">
+
+                                    <input type="hidden" class="form-control" id="modal_template_id" placeholder="">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button onclick="hide_modal()" type="button" class="btn btn-primary">创建</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+</div>
+
+<div>
+    <h2>复选框定位</h2>
+    <div class="box">
+        <span>点击按钮获取checkbox的选中值：</span>
+        <div class="content">
+            <input type='checkbox' name='checkbox' value='1'/>发送短信
+            <input type='checkbox' name='checkbox' value='2'/>发送邮件
+        </div>
+        <input onclick="checkbox_button()" type="button" value="提交">
+    </div>
+</div>
+
+<div>
+    <h2>单选框定位取值</h2>
+    <label><input value="1" tabindex="3" type="radio" id="input-3" name="demo-radio" checked> Checkbox 1</label>
+
+    <label><input value="2" tabindex="3" type="radio" id="input-4" name="demo-radio"> Checkbox 2</label>
+    <input onclick="radio_button()" type="button" value="获取">
+</div>
+
+<div>
+    <h2>轮询数据，定时调用ajax查询结果</h2>
+    <button onclick="start_time()">开始每5秒执行 clock()函数</button>
+    <button onclick="stop_time()">停止</button>
+</div>
+</body>
+<script src="${STATIC_URL}js/other.js" type="text/javascript"></script>
+</%block>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,209 @@
+<%inherit file="/base.html"/>
+
+<%block name="content">
+
+
+    <!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
+    <!-- Bootstrap css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- kendo ui css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <!--蓝鲸提供的公用样式库 -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <!-- 数据埋点统计 -->
+    <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
+
+    <script src="${STATIC_URL}js/home.js" type="text/javascript"></script>
+<body class="bg-white" data-bg-color="bg-white">
+<div class="king-page-box">
+    <div class="king-layout1-header">
+        <nav role="navigation" class="navbar navbar-default king-horizontal-nav2    f14 ">
+            <div class="container " style="width:100%;overflow:hidden;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed navbar-toggle-sm" data-toggle="collapse"
+                            data-target="#king-horizontal-nav2-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="javascript:;">
+                        <img src="https://magicbox.bk.tencent.com/static_api/v3/bk/images/logo3.png" alt=""
+                             class="logo"> </a>
+                </div>
+                <div class="collapse navbar-collapse navbar-responsive-collapse" id="king-horizontal-nav2-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="king-navbar-active"><a href="${SITE_URL}">首页</a></li>
+                        <li><a href="${SITE_URL}mock_exam/exec_log/">执行记录</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="javascript:;">
+                                <span>${request.user.username}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="king-layout2-main mt15" style="width:960px;">
+        <form class="form-horizontal">
+            <div class="form-group clearfix ">
+                <label class="col-sm-3 control-label bk-lh30 pt0">选择业务：</label>
+                <div class="col-sm-9">
+                    <select name="" id="business_list" class="form-control bk-valign-top">
+                        % for item in business:
+                        <option value="${item['bk_biz_id']}">${item['bk_biz_name']}</option>
+                        % endfor
+                    </select>
+                </div>
+            </div>
+            <div class="form-group clearfix ">
+                <label class="col-sm-3 control-label bk-lh30 pt0">任务类型：</label>
+                <div class="col-sm-9">
+                    <select name="" id="task_list" class="form-control bk-valign-top" style="width: 50%">
+                        % for task in task_list:
+                        <option value="${task['id']}">${task['task_type']}</option>
+                        % endfor
+                    </select>
+                    <button onclick="show_task_type()" type="button" class="king-btn mr10  king-success">创建</button>
+                </div>
+
+            </div>
+            <div class="form-group clearfix ">
+                <label class="col-sm-3 control-label bk-lh30 pt0">脚本参数：</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control bk-valign-top" id="args" placeholder="请输入脚本参数"></div>
+            </div>
+            <div class="form-group clearfix">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <button onclick="exec_job()" type="button" class="king-btn mr10  king-success">执行</button>
+                </div>
+            </div>
+        </form>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h2 class="modal-title" id="myModalLabel">
+                        创建任务类型
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <!-- 添加内容 -->
+                    <div class="king-block king-block-bordered">
+                        <div class="king-block-content">
+                            <form class="form-horizontal" method="POST">
+                                <div class="form-group">
+                                    <label for="inputCount3" class="col-sm-3 control-label">任务类型：</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="task_type"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">脚本文件：</label>
+                                    <div class="col-sm-7">
+                                        <input type="file" id="file" name="myfile"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button onclick="create_task_type()" type="button" class="btn btn-primary">创建</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal）end -->
+        <div class="panel panel-default pannel-overflow panel-tables table7_demo">
+            <div class="panel-heading"><i class="fa fa-list-ulx"></i> 主机列表
+            </div>
+            <div class="panel-content">
+                <table class="table table-header-bg table-hover mb0" id="table_demo2">
+                    <thead>
+                    <tr>
+                        <th style="width: 25px">
+                            <input type="checkbox" name="checkall" value="">
+                        </th>
+                        <th style="width: 100px">序号</th>
+                        <th style="width:25%">内网IP</th>
+                        <th style="width:25%">操作系统</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    % for item in host_list:
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="check" value="${item['bk_host_innerip']}">
+                        </td>
+                        <td>${item['bk_host_id']}</td>
+                        <td>${item['bk_host_innerip']}</td>
+                        <td>${item['bk_os_name']}${item['bk_os_version']}</td>
+                    </tr>
+                    % endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 设置面板End -->
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        $('#table_demo2').find('input[name="checkall"]').click(function () {
+            var checked = $(this).prop('checked');
+            $('#table_demo2>tbody input').prop('checked', checked);
+        });
+        $('#table_demo2').find(':checkbox').on('click', function () {
+            if (!this.checked) {
+                $('#table_demo2').find('input[name="checkall"]').prop('checked', false);
+            }
+        });
+        $('#table_demo2').find('.glyphicon-remove').parent('button').click(function () {
+            if (confirm('确定要删除？')) {
+                $(this).closest('tr').remove();
+            }
+        });
+        $('#deleteAll').click(function (event) {
+            var records = $('#table_demo2>tbody input:checked').closest('tr');
+            if (!records.length) {
+                alert('请选择要删除的记录！');
+                return false;
+            }
+            if (confirm('确定要删除？')) {
+                records.remove();
+            }
+        });
+    });
+</script>
+</body>
+</%block>
+
