@@ -293,3 +293,19 @@ def mock_exam1_show_log(request):
     else:
         log_content = "作业未执行完！"
     return render_json(log_content)
+
+
+def mock_exam1_test(request):
+    data = request.GET
+    new_dict = dict()
+    for item in data.keys():
+        if data.get(item)[0].isdigit():
+            new_dict[item] = int(data.get(item)[0])
+        else:
+            new_dict[item] = data.get(item)[0]
+    dictionary = {
+        'result': True,
+        'message': 'success',
+        'data': new_dict
+    }
+    return render_json(dictionary)

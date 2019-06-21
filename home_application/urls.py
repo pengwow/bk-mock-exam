@@ -41,4 +41,6 @@ urlpatterns = patterns(
     (r'^mock_exam/exec_log/$', 'mock_exam1_exec_log'),
     # ## 显示日志
     (r'^mock_exam/show_log/$', 'mock_exam1_show_log'),
+    # 固定返回
+    (r'^api/test/$', 'mock_exam1_test'),
 )
