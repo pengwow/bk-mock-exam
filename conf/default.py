@@ -30,8 +30,8 @@ from django.conf.global_settings import *  # noqa
 # 应用基本信息配置 (请按照说明修改)
 # ==============================================================================
 # 在蓝鲸智云开发者中心 -> 点击应用ID -> 基本信息 中获取 APP_ID 和 APP_TOKEN 的值
-APP_ID = 'bk-mock-exam'
-APP_TOKEN = 'adbe962f-c1fd-42c3-b732-ee8aa4653992'
+APP_ID = 'test-mock2'
+APP_TOKEN = 'd7935a80-3ca3-458e-b188-81776e3b00c8'
 # 蓝鲸智云开发者中心的域名，形如：http://paas.bking.com
 BK_PAAS_HOST = 'https://paas.bk.com'
 
@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'app_control',
     'account',
     'home_application',
+    'mock_exam2'
 )
 
 # ==============================================================================
