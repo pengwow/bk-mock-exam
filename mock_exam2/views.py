@@ -60,7 +60,7 @@ def home(request):
         wait_list.append(dict(
             template_name=item.modal_template_name,
             identifier=item.modal_identifier,
-            template_biz_name=item.bk_biz_id,
+            template_biz_name=item.bk_biz_name,
             template_type=item.bk_type_modal,
             user=item.user,
             create_date=item.create_time,
